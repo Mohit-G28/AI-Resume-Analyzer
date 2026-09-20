@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================================
+         NAVBAR
+    ================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span>AI</span> Resume Analyzer
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#analyze">Analyze</a>
+            <a href="#tips">Tips</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <a href="#analyze" class="upload-btn">
+            Upload Resume
+        </a>
+
+    </header>
+
+
+    <!-- ================================
+         DASHBOARD
+    ================================= -->
+
+    <section class="dashboard-section" id="dashboard">
+
+        <div class="dashboard-heading">
+
+            <span>DASHBOARD</span>
+
+            <h2>
+                Resume <span>Dashboard</span>
+            </h2>
+
+            <p>
+                Quick overview of your resume analysis.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-cards">
+
+            <!-- ATS -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📊
+                </div>
+
+                <h3>
+                    ATS Score
+                </h3>
+
+                <div
+                    class="dashboard-number"
+                    id="dashboardATS"
+                >
+                    0%
+                </div>
+
+                <p>
+                    Resume compatibility
+                </p>
+
+            </div>
+
+
+            <!-- JOB MATCH -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Job Match
+                </h3>
+
+                <div
+                    class="dashboard-number"
+                    id="dashboardMatch"
+                >
+                    0%
+                </div>
+
+                <p>
+                    Skills matching job
+                </p>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🛠️
+                </div>
+
+                <h3>
+                    Skills Found
+                </h3>
+
+                <div
+                    class="dashboard-number"
+                    id="dashboardSkills"
+                >
+                    0
+                </div>
+
+                <p>
+                    Skills detected
+                </p>
+
+            </div>
+
+
+            <!-- SUGGESTIONS -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Suggestions
+                </h3>
+
+                <div
+                    class="dashboard-number"
+                    id="dashboardSuggestions"
+                >
+                    0
+                </div>
+
+                <p>
+                    Resume improvements
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         HERO SECTION
+    ================================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🤖 AI Powered Resume Analysis
+            </div>
+
+            <h1>
+                Make Your Resume
+                <span>AI Ready.</span>
+            </h1>
+
+            <p>
+                Upload your resume and get intelligent analysis,
+                skills detection, job matching and personalized
+                improvement suggestions.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#analyze" class="primary-btn">
+                    Analyze My Resume →
+                </a>
+
+                <a href="#about" class="secondary-btn">
+                    Learn More
+                </a>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div>
+                    <strong>AI</strong>
+                    <small>Powered</small>
+                </div>
+
+                <div>
+                    <strong>ATS</strong>
+                    <small>Friendly</small>
+                </div>
+
+                <div>
+                    <strong>100%</strong>
+                    <small>Personalized</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             ANALYZER CARD
+        ================================= -->
+
+        <div
+            class="analyzer-card"
+            id="analyze"
+        >
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Resume Analyzer
+                    </h2>
+
+                    <p>
+                        Upload your resume to begin
+                    </p>
+
+                </div>
+
+                <div class="ai-icon">
+                    ✨
+                </div>
+
+            </div>
+
+
+            <!-- UPLOAD -->
+
+            <div class="upload-area">
+
+                <div class="upload-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Upload Your Resume
+                </h3>
+
+                <p>
+                    PDF or DOCX
+                    <br>
+                    Maximum size: 5 MB
+                </p>
+
+
+                <input
+                    type="file"
+                    id="resumeFile"
+                    accept=".pdf,.docx"
+                    hidden
+                >
+
+
+                <button
+                    type="button"
+                    class="choose-btn"
+                    onclick="document.getElementById('resumeFile').click()"
+                >
+                    Choose File
+                </button>
+
+
+                <div id="fileName">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- JOB DESCRIPTION -->
+
+            <div class="job-section">
+
+                <label for="jobDescription">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="jobDescription"
+                    placeholder="Paste the job description here..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="analyze-btn"
+                id="analyzeBtn"
+            >
+                Analyze Resume
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         FEATURES
+    ================================= -->
+
+    <section
+        class="features"
+        id="tips"
+    >
+
+        <div class="section-heading">
+
+            <span>
+                POWERFUL FEATURES
+            </span>
+
+            <h2>
+                Everything you need to
+                improve your resume
+            </h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Resume Score
+                </h3>
+
+                <p>
+                    Get an AI-powered score based on
+                    your resume structure, skills and keywords.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Job Matching
+                </h3>
+
+                <p>
+                    Compare your resume with a job description
+                    and identify matching requirements.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Skills Detection
+                </h3>
+
+                <p>
+                    Automatically detect technical and
+                    professional skills from your resume.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💡
+                </div>
+
+                <h3>
+                    AI Suggestions
+                </h3>
+
+                <p>
+                    Get personalized suggestions to make
+                    your resume more effective.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         ANALYSIS RESULTS
+    ================================= -->
+
+    <section
+        class="results-section"
+        id="results"
+    >
+
+        <div class="results-heading">
+
+            <span>
+                RESUME ANALYSIS
+            </span>
+
+            <h2>
+                Your Resume <span>Analysis</span>
+            </h2>
+
+            <p>
+                AI-powered insights based on your
+                resume and job description.
+            </p>
+
+        </div>
+
+
+        <!-- SCORE CARDS -->
+
+        <div class="result-score-grid">
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    📊
+                </div>
+
+                <h3>
+                    ATS Score
+                </h3>
+
+                <div
+                    class="result-number"
+                    id="atsScore"
+                >
+                    0%
+                </div>
+
+                <p>
+                    Resume compatibility score
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Job Match
+                </h3>
+
+                <div
+                    class="result-number"
+                    id="matchScore"
+                >
+                    0%
+                </div>
+
+                <p>
+                    Skills matching the job
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🛠️
+                </div>
+
+                <h3>
+                    Skills Found
+                </h3>
+
+                <div
+                    class="result-number"
+                    id="skillsCount"
+                >
+                    0
+                </div>
+
+                <p>
+                    Skills detected in resume
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="analysis-grid">
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    🛠️ Detected Skills
+                </h3>
+
+                <div
+                    id="skillsList"
+                    class="skills-list"
+                >
+
+                    <span class="empty-result">
+                        Skills will appear here.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    ❌ Missing Skills
+                </h3>
+
+                <div
+                    id="missingSkillsList"
+                    class="skills-list"
+                >
+
+                    <span class="empty-result">
+                        Missing skills will appear here.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATCHED SKILLS -->
+
+        <div class="analysis-box full-width">
+
+            <h3>
+                🎯 Matched Skills
+            </h3>
+
+            <div
+                id="matchedSkillsList"
+                class="skills-list"
+            >
+
+                <span class="empty-result">
+                    Matching skills will appear here.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUGGESTIONS -->
+
+        <div class="suggestions-box">
+
+            <h3>
+                💡 Resume Improvement Suggestions
+            </h3>
+
+            <ul id="suggestionsList">
+
+                <li>
+                    Suggestions will appear after analysis.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ================================
+             ANALYSIS SUMMARY
+        ================================= -->
+
+        <div class="analysis-summary">
+
+            <div class="summary-heading">
+
+                <span>
+                    ANALYSIS SUMMARY
+                </span>
+
+                <h2>
+                    Resume <span>Insights</span>
+                </h2>
+
+                <p>
+                    Understand your resume performance at a glance.
+                </p>
+
+            </div>
+
+
+            <div class="summary-content">
+
+
+                <div class="summary-box">
+
+                    <h3>
+                        ATS Performance
+                    </h3>
+
+                    <p>
+                        Your resume has been analyzed for ATS
+                        compatibility, relevant keywords, skills
+                        and resume structure.
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h3>
+                        Job Compatibility
+                    </h3>
+
+                    <p>
+                        Your job match score shows how closely
+                        your resume matches the provided
+                        job description.
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h3>
+                        Skill Analysis
+                    </h3>
+
+                    <p>
+                        Detected and missing skills help you
+                        understand which skills should be
+                        highlighted or improved.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         ABOUT
+    ================================= -->
+
+    <section
+        class="about"
+        id="about"
+    >
+
+        <div class="about-content">
+
+            <span>
+                ABOUT THE PROJECT
+            </span>
+
+            <h2>
+                Your personal
+                <span>AI career assistant.</span>
+            </h2>
+
+            <p>
+                AI Resume Analyzer uses Natural Language Processing
+                and Artificial Intelligence techniques to understand
+                your resume and provide useful career-focused insights.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                AI Resume Analyzer
+            </strong>
+
+            <p>
+                Better Resume. Brighter Future.
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 AI Resume Analyzer
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
